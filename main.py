@@ -100,7 +100,7 @@ async def account_login(bot: Client, m: Message):
 
     api = 'https://api.classplusapp.com/v2'
 
-try:
+    try:
         reply = await m.reply(
             (
                 '**'
