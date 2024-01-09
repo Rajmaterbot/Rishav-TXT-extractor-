@@ -35,9 +35,9 @@ logging.basicConfig(
 
 bot = Client(
     "bot",
-    api_id= 22779671,
-    api_hash= "125d8d88b77309dc3b154cbbfc2dacb2",    
-    bot_token= "6847175705:AAHbkU8GFmzoxR9dCQTr6RuZ4NQsev5ufz0"
+    api_id=api_id,
+    api_hash=api_hash,
+    bot_token=bot_token
 )
 
 @bot.on_message(filters.command(["start"]))
