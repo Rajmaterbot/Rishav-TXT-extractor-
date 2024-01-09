@@ -49,9 +49,7 @@ async def start(bot, update):
 
 @bot.on_message(filters.command(["classplus"]))
 async def account_login(bot: Client, m: Message):
-
     def get_course_content(session, course_id, folder_id=0):
-
         fetched_contents = []
 
         params = {
@@ -62,22 +60,20 @@ async def account_login(bot: Client, m: Message):
         res = session.get(f'{api}/course/content/get', params=params)
 
         if res.status_code == 200:
-            res = res.json()
+            res_json = res.json()  # Convert the response to JSON
 
-            contents = res['data']['courseContent']
+            contents = res_json.get('data', {}).get('courseContent', [])
 
             for content in contents:
-
                 if content['contentType'] == 1:
-                    resources = content['resources']
+                    resources = content.get('resources', {})
 
-                    if resources['videos'] or resources['files']:
+                    if resources.get('videos') or resources.get('files'):
                         sub_contents = get_course_content(session, course_id, content['id'])
                         fetched_contents += sub_contents
-
                 else:
-                    name = content['name']
-                    url = content['url']
+                    name = content.get('name', '')
+                    url = content.get('url', '')
                     fetched_contents.append(f'{name}: {url}')
 
         return fetched_contents
